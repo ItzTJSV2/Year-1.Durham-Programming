@@ -1,0 +1,48 @@
+import time
+boardSize = 9
+board = [["-" for i in range(boardSize)] for j in range(boardSize)]
+startSquare = "A1"
+columns = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I']
+rows = ['1', '2', '3', '4', '5', '6', '7', '8', '9']
+
+def CheckSpace(row, column):
+    if (row > boardSize-1 or row < 0 or column > boardSize-1 or column < 0): #out of bounds
+        return False
+    
+    if board[column][row] == "-":
+        return True # Available
+    return False # Not Available
+
+movementCol = [2, 1, -1, -2, -2, -1, 1, 2]
+movementRow = [1, 2, 2, 1, -1, -2, -2, -1]
+
+def printBoard(boardPrint):
+    for x in range(boardSize):
+        print(boardPrint[x])
+
+
+evaluations = 0
+def recursiveSearch(recurBoard, curRow, curCol, moveNumber):
+    if (moveNumber == 81):
+        printBoard(recurBoard)
+        return True
+    for x in range(8): # Amount of different movements
+        newRow = curRow + movementRow[x]
+        newCol = curCol + movementCol[x]
+        if (CheckSpace(newRow, newCol)): #Space is free
+            recurBoard[newCol][newRow] = moveNumber
+            #print(f"Moved {columns[curCol]}{rows[curRow]} to {columns[newCol]}{rows[newRow]}")
+            if (recursiveSearch(recurBoard, newRow, newCol, moveNumber+1)):
+                return True
+            # Backtrack move
+            recurBoard[newCol][newRow] = "-"
+    return False
+
+    
+    
+board[columns.index(startSquare[0])][rows.index(startSquare[1])] = 0
+
+
+start_time = time.time()
+recursiveSearch(board, columns.index(startSquare[0]), rows.index(startSquare[1]), 1)
+print(f"{time.time() - start_time} seconds")

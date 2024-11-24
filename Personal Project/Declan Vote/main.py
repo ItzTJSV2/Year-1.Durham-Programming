@@ -62,7 +62,5 @@ for i in range(3):
     threads.append(t)
 for t in threads:
     t.start()
-
-# Wait for all threads to complete
 for t in threads:
     t.join()

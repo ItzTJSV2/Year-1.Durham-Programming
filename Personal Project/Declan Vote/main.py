@@ -8,7 +8,6 @@ import time
 
 votes = 1
 profile = "/Users/maxtr/Library/Application Support/Firefox/Profiles/777xx6zr.default-release"
-# Function to handle the voting logic
 def vote_process(thread_id):
     global votes
     initTime = time.time()
@@ -27,7 +26,7 @@ def vote_process(thread_id):
         try:
             element = driver.find_element(By.XPATH, "//h2[@class='gnt_ar_b_h2' and text()='Cast Your Vote']")
             driver.execute_script("arguments[0].scrollIntoView();", element)
-            # Wait for the iframe to load
+            # Wait for iframe
             iframe = WebDriverWait(driver, 10).until(
                 EC.presence_of_element_located((By.TAG_NAME, "iframe"))
             )
@@ -57,15 +56,10 @@ def vote_process(thread_id):
             votes += 1
             driver.refresh()
 
-# List to hold threads
 threads = []
-
-# Creating 3 threads
 for i in range(3):
     t = threading.Thread(target=vote_process, args=(i,))
     threads.append(t)
-
-# Start all threads
 for t in threads:
     t.start()
 

@@ -57,7 +57,7 @@ def vote_process(thread_id):
             driver.refresh()
 
 threads = []
-for i in range(3):
+for i in range(1):
     t = threading.Thread(target=vote_process, args=(i,))
     threads.append(t)
 for t in threads:

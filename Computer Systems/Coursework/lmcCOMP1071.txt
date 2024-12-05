@@ -1,0 +1,75 @@
+# By Max M. Tran 
+# Level 1 Undergraduate COMP1071 LMC Coursework
+# Explanation:
+# At the start, an input is queried
+# A loop is declared and the current value is 
+# checked for N=1, if it is then exit.  
+# 
+# For an integer N, it can be either odd or even
+# The division loop calculates:
+#  N/2 for even
+#  (N-1)/2 for odd (due to division rounding down)
+# The program simultaneously creates a parity value (used for detecting even / odd) via the remainder
+# For even parity, it will loop again
+# For odd parity, the program has (N-1)/2, N, and 1
+# The program adds them all together to create (3N+1)/2
+# This is because (while assuming N is odd): 
+# (3N+1)/2
+# = N + (N+1)/2
+# = N + (N-1)/2 + 1
+#
+# The program will check for overflow and exit as specified if it's detected, if not repeat.
+#
+# Program Start
+	IN
+# Main program loop
+prog	STO	Temp1 # Store the current value
+	STO	Temp3
+	OUT
+	SUB	One   # Checking for N = 1
+	BRZ	Exit  # Exit if true
+
+	LDA	Exit # 000
+	STO	Temp2 # Setup for division
+	# Temp2 = Temp1 / 2
+	# Temp1 becomes remainder
+
+
+Div2	LDA	Temp2 # Division Loop
+	ADD	One   # Add 1 to quotient value
+	STO	Temp2 # Store it
+	LDA	Temp1 # Remove 2 from N
+	SUB	Two   
+	STO	Temp1 # Store it
+	BRP	Div2  # If unfinished, repeat
+# After Division is finished
+	LDA	Temp2 
+	SUB	One   # Ensure proper division (remove excess)
+
+
+	STO	Temp2
+	LDA	Temp1 # Get remainder
+	ADD	Two # Create Parity Bit
+	BRZ	EvenFunc	# If N is even go to Even
+	# Else (if odd)
+	LDA	Temp2 # Load (N-1)/2
+	ADD	One   # Add 1
+	ADD	Temp3 # Add N
+	# Created (3n+1)/2, check for overflow
+	SUB	Temp3 
+	BRP	OddFunc # If no overflow go to Odd		# Overflow detected
+	LDA	Exit # Output 0 and exit
+	OUT
+	BR	Exit
+# Functions
+EvenFunc	LDA	Temp2 # Move new value to Temp1
+	BR	prog  # Loop back again
+OddFunc	ADD	Temp3 # Re-add N
+	BR	prog  # Loop back again
+Exit	HLT # Exit program.
+# Data Values
+Temp1	DAT	999	
+Temp2	DAT	999
+Temp3	DAT	999
+One	DAT	001
+Two	DAT	002

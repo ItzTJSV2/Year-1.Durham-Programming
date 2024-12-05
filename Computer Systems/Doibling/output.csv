@@ -1,0 +1,4 @@
+Test#,File,Comment,Input_1,Expected_output_1,Max_cycles,Mailboxes_used,Cycles_used,Halted(1)_or_Terminated(0),Outputs
+1,doubling.txt,test-1,35,70,100000,6,5,1,70
+2,doubling.txt,test-2,128,256,100000,6,5,1,256
+3,doubling.txt,test-3,400,800,100000,6,5,1,800

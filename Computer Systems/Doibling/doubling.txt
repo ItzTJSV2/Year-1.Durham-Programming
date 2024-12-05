@@ -1,0 +1,15 @@
+# ask user input (it goes into the calculator)
+	IN 
+# store what is in the calculator in the memory 
+# at the mailbox labelled a 
+	STO a
+# add what is store in memory (=a) to what is stored in 
+# the calculator (=a). The calculator now stores 2a. 
+	ADD a 
+# output (what is stored in the calculator) 
+	OUT
+# halt
+	HLT
+#
+### data
+a	DAT

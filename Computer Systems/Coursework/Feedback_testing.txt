@@ -1,0 +1,66 @@
+Feedback for LMC file: testing.txt
+
+
+Attempting to compile: Compile successful. 0 mailboxes used
+
+
+Attempting to run test 1: test-1
+    Inputs: 1
+  Expected: 1, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 
+    Output: 
+  Halted after 1 Fetch/execute cycles.
+
+Attempting to run test 2: test-2
+    Inputs: 3
+  Expected: 3, 5, 8, 4, 2, 1, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 
+    Output: 
+  Halted after 1 Fetch/execute cycles.
+
+Attempting to run test 3: test-3
+    Inputs: 8
+  Expected: 8, 4, 2, 1, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 
+    Output: 
+  Halted after 1 Fetch/execute cycles.
+
+Attempting to run test 4: test-4
+    Inputs: 15
+  Expected: 15, 23, 35, 53, 80, 40, 20, 10, 5, 8, 4, 2, 1, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 
+    Output: 
+  Halted after 1 Fetch/execute cycles.
+
+Attempting to run test 5: test-5
+    Inputs: 114
+  Expected: 114, 57, 86, 43, 65, 98, 49, 74, 37, 56, 28, 14, 7, 11, 17, 26, 13, 20, 10, 5, 8, 4, 2, 1, , , , , , , , , , , , , , , , , , , , , , 
+    Output: 
+  Halted after 1 Fetch/execute cycles.
+
+Attempting to run test 6: test-6
+    Inputs: 210
+  Expected: 210, 105, 158, 79, 119, 179, 269, 404, 202, 101, 152, 76, 38, 19, 29, 44, 22, 11, 17, 26, 13, 20, 10, 5, 8, 4, 2, 1, , , , , , , , , , , , , , , , , , 
+    Output: 
+  Halted after 1 Fetch/execute cycles.
+
+Attempting to run test 7: test-7
+    Inputs: 219
+  Expected: 219, 329, 494, 247, 371, 557, 836, 418, 209, 314, 157, 236, 118, 59, 89, 134, 67, 101, 152, 76, 38, 19, 29, 44, 22, 11, 17, 26, 13, 20, 10, 5, 8, 4, 2, 1, , , , , , , , , , 
+    Output: 
+  Halted after 1 Fetch/execute cycles.
+
+Attempting to run test 8: test-8
+    Inputs: 169
+  Expected: 169, 254, 127, 191, 287, 431, 647, 971, 0, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 
+    Output: 
+  Halted after 1 Fetch/execute cycles.
+
+Attempting to run test 9: test-9
+    Inputs: 171
+  Expected: 171, 257, 386, 193, 290, 145, 218, 109, 164, 82, 41, 62, 31, 47, 71, 107, 161, 242, 121, 182, 91, 137, 206, 103, 155, 233, 350, 175, 263, 395, 593, 890, 445, 668, 334, 167, 251, 377, 566, 283, 425, 638, 319, 479, 719, 0
+    Output: 
+  Halted after 1 Fetch/execute cycles.
+
+Attempting to run test 10: test-10
+    Inputs: 929
+  Expected: 929, 0, , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , , 
+    Output: 
+  Halted after 1 Fetch/execute cycles.
+

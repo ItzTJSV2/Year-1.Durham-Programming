@@ -1,0 +1,44 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>My Webpage</title>
+    <link rel="stylesheet" href="main.css">
+    <style>
+        table {
+            margin: 0 auto;
+            border-collapse: collapse;
+            width: 90%;
+        }
+        td {
+            border: 1px solid black;
+            padding: 10px;
+        }
+        .col-1 {
+            width: 10%;
+        }
+        .col-2, .col-3 {
+            width: 45%;
+        }
+    </style>
+</head>
+<body>
+    <input id="inputQuery" placeholder="Recipe Index">
+    <button id="GET">Find</button>
+
+    <h1 style="text-align: center;" id="h1Title">Recipes!</h1>
+    <table>
+        <tr>
+            <td class="col-1">Servings</td>
+            <td class="col-2">Ingredients</td>
+            <td class="col-3">Instructions</td>
+        </tr>
+        <tr>
+            <td id="Servings" class="col-1"></td>
+            <td id="Ingredients List" class="col-2"></td>
+            <td id="Instructions" class="col-3"></td>
+        </tr>
+    </table>
+    
+    <script src="main.js"></script>
+</body>
+</html>

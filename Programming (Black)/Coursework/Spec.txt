@@ -125,14 +125,34 @@ BAN   |BAN  |PICK|PICK| BAN  |BAN   |PICK (Default)
 AgentOrder:
 
 
-JSON File:
+Game JSON File:
 [
     {
-      "BO": int(1/3/5),
+      "BO": "1/3/5",
       "MapPool": "Bind|Haven|Split|Ascent|Pearl|Sunset|Abyss", #len = 7
       "MapOrder": "3|6|0|1|4|5|2",  #Ascent|Abyss|Bind|Haven|Pearl|Sunset|Split
       "AgentOrder": "1|2|3|4|5|6|7|8|9|10|11|12|13|14|15|16|17|18|19|20" or ""
-      "GameID": 1 # Just rolling integer for now
+      "GameID": "0" # Just rolling integer for now
     },
     ...
+]
+
+Agent JSON File:
+[
+    {
+      "Name": "Brimstone",
+      "Class": "Controller",
+      "AgentID": "0"
+    },
+    ...
+]
+
+Map JSON File:
+[
+  {
+      "Name": "Bind",
+      "Comp": "True",
+      "MapID": "0"
+  },
+  ...
 ]

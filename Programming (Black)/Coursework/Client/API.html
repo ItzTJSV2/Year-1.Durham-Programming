@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>API Documentation</title>
+    <link rel="stylesheet" type="text/css" href="main.css">
+</head>
+<body>
+    <!--Server Disconnect Popup-->
+    <div id="modalBackdrop" class="modal-backdrop">
+            <div class="modal">
+                <h2>Server Connection Error</h2>
+                <p>Server connection is not found, automatically attempting to reconnect in <span id="countdown">5</span> seconds.</p>
+            </div>
+        </div>
+    <div>
+        <!--Top Navbar-->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light" style="position: fixed; top: 0; width: 100%; z-index: 1;">
+            <a class="navbar-brand" style="margin-left: 8%;" href="main.html">Navbar</a>
+            <div style="margin-left: auto; margin-right: 8%;" class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="API.html">DOCS</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="NewGame.html">NEW DRAFT</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <!--Left Navbar-->
+        <div class="apibar">
+            <div class="logo">Valorant Drafting API</div>
+            <a href="#Intro">Introduction</a>
+            <a href="#Draft">Game Drafting</a>
+            <a href="#JSON">Storage (JSON) Formatting</a>
+            <a href="#Requests">Requests</a>
+        </div>
+        <!--Page (Api Documentation) Content-->
+        <div class="apicontent">
+            <h1 id="Intro">&nbsp;</h1>
+            <br>
+            <br>
+            <br>
+
+            <br>
+            <h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Introduction</h1>
+            <br>
+
+            <p>By default <span style="font-style: italic">(can be changed in server.js)</span>,, API Requests are handled by <span style="font-weight: bold;">127.0.0.1</span> on port <span style="font-weight: bold;">8080</span> using the directory <span style="font-weight: bold;">'/api/'</span></p>
+            <p>This is a REST API with CRUD (Create, Read, Update, Delete) capabilites for Game Drafting and JSON responses available for Agents and Maps as of 27/12/24</p>
+            <p>This API was built by Max M. Tran as a part of the <span style="font-weight: bold;">COMP1101</span> Programming (Black) coursework.</p>
+            <p>The following are the NPM packages used:</p>
+            <ul>
+                <li>npm 10.9.0</li>
+                <li>Axios 1.7.9</li>
+                <li>Bootstrap 5.3.3</li>
+                <li>Express 4.21.2</li>
+                <li>fs 0.0.1</li>
+                <li>node 23.1.0</li>
+                <li>promises 0.2.5</li>
+            </ul>
+    
+            <h1 id="Draft">&nbsp;</h1>
+            <hr>
+            <br>
+    
+            <h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Game Drafting</h1>
+            <br>
+            <p>This API was built for displaying and creating game drafts for <a id="hyper0" href="https://playvalorant.com/en-gb/">Valorant</a>.</p>
+            <p>By default, a draft will contain a map draft followed by an agent draft.  For map drafting, there are two main settings for the user to change:</p>
+            <ul>
+                <li>Number of Maps to Draft (BO)</li>
+                <li>The Map Pool</li>
+            </ul>
+            <p>To see the available Maps and Agents, see <a href="#JSON">Storage (JSON) Formatting</a></p>
+            <br>
+            <p>The Map Pool has 11 available maps to select from, but 7 is the only available total for a map pool.
+            By default, set to the competitive map pool of <span style="font-weight: bold;">Bind, Haven, Split, Ascent, Pearl, Sunset, and Abyss</span> unless the user specifies which ones to remove/add.</p>
+            <p>The Number of Maps to Draft or BO (Best Of) can be 1, 3, or 5.</p>
+            <br>
+            <p>For a draft there are two teams: <span style="font-weight: bold;">Team A</span> and <span style="font-weight: bold;">Team B</span>.</p>
+            <p>These teams should be allocated by the user to their given players/teams.</p>
+            <p>See the following table for <span style="font-weight: bold;">Map</span> ban/pick orders for each Best Of setting.</p>
+            <table style="width: 70%; border-collapse: collapse;">
+                <tr>
+                    <td style="border: 1px solid black; text-align: center;"><span style="font-weight: bold;">Best Of 1</span></td>
+                    <td style="border: 1px solid black; text-align: center;"><span style="font-weight: bold;">Best Of 3</span></td>
+                    <td style="border: 1px solid black; text-align: center;"><span style="font-weight: bold;">Best Of 5</span></td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid black;">
+                        <pre>
+    Team A bans 1
+    Team B bans 2
+    Team A bans 1
+    Team B bans 1
+    Team A Picks 1
+    Team B Side Choice
+                        </pre>
+                    </td>
+                    <td style="border: 1px solid black;">
+                        <pre>
+    Team A bans 1
+    Team B bans 1
+    Team A Picks 1
+    Team B Side Choice
+    
+    Team B Picks 1
+    Team A Side Choice
+    
+    Team B bans 1
+    Team A Picks 1
+    Team B Side Choice
+                        </pre>
+                    </td>
+                    <td style="border: 1px solid black;">
+                        <pre>
+    Team A bans 1
+    Team B bans 1
+    Team A Picks 1
+    Team B Side Choice
+    
+    Team B Picks 1
+    Team A Side Choice
+    
+    Team A Picks 1
+    Team B Side Choice
+    
+    Team B Picks 1
+    Team A Side Choice
+    
+    Team A Picks 1
+    Team B Side Choice
+                        </pre>
+                    </td>
+                </tr>
+            </table>
+            <p>Side Choice has two options: <span style="font-weight: bold;">Attacking</span> and <span style="font-weight: bold;">Defending</span>.  Selecting one side means starting the first half on that selected side.</p>
+            <p>This format is taken from the Official Valorant Champions Tour map draft format.</p>
+            <br>
+            <p>This is optionally followed by <span style="font-weight: bold;">Agent Drafting</span>.</p>
+            <p>There are 25 Agents all being available for the user to select from.</p>
+            <p>An agent will take the following format:</p>
+            <table style="width: 24%; border-collapse: collapse;">
+                <tr>
+                    <td style="border: 1px solid black;">
+                        <pre>
+    Team A Bans 1 
+    Team B Bans 1
+    Team A Bans 1 
+    Team B Bans 1
+    Team A Bans 1
+    Team B Bans 1
+    Team A Bans 1
+    Team B Bans 1
+    
+    Team A Picks 1
+    Team B Picks 2
+    Team A Picks 2
+    Team B Picks 1
+    
+    Team A Bans 1
+    Team B Bans 1
+    Team A Bans 1
+    Team B Bans 1
+    
+    Team B Picks 1
+    Team A Picks 2
+    Team B Picks 1
+                        </pre>  
+                    </td>
+                </tr>
+            </table>  
+            <p>This format is taken from the Official League of Legends champion draft format.</p>
+    
+            <h1 id="JSON">&nbsp;</h1>
+            <hr>
+            <br>
+    
+            <h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Storage (JSON) Formatting</h1>
+            <br>
+            <p>There are 3 JSON Files at your disposal:</p>
+            <ul>
+                <li>
+                    <a id="hyper1" href="Games.JSON">Games.JSON</a>
+                </li>
+                <li>
+                    <a id="hyper2" href="Agents.JSON">Agents.JSON</a>
+                </li>
+                <li>
+                    <a id="hyper3" href="Maps.JSON">Maps.JSON</a>
+                </li>
+            </ul>
+            <br>
+            <p><span style="font-weight: bold;">Agents.JSON</span> and <span style="font-weight: bold;">Maps.JSON</span> are both <span style="font-weight: bold;">Read Only</span> files.  They contain all possible Agents and Maps available for drafting alongside an ID that is related/referred to in <span style="font-weight: bold;">Games.JSON</span></p>
+            <p><span style="font-weight: bold;">Agents.JSON</span> and <span style="font-weight: bold;">Maps.JSON</span> are stored in the following formats:</p>
+            <pre class="codebox">
+            | Agents.JSON |
+            [
+                {
+                    "name": "Brimstone",
+                    "class": "Controller",
+                    "agentid": "0"
+                },
+                {
+                    "name": "Viper",
+                    "class": "Controller",
+                    "agentid": "1"
+                },
+                ...
+            ]
+            </pre>
+            <pre class="codebox">
+            | Maps.JSON |
+            [
+                {
+                    "Name": "Bind",
+                    "Comp": "True",
+                    "MapID": "0"
+                },
+                {
+                    "Name": "Haven",
+                    "Comp": "True",
+                    "MapID": "1"
+                },
+                ...
+            ]
+            </pre>
+            <p><a id="hyper4" href="https://valorant.fandom.com/wiki/VALORANT_Wiki">Data is manually taken from Valorant Fandom Wiki Page.</a></p>
+            <br>
+            <p>In both cases, <span style="font-weight: bold;">'Name'</span> is used for displaying their titles for the user, but also used to find their corresponding image in the <span style="font-weight: bold;">'/Client/Assets'</span> folder.
+            All images are stored in the JPEG format.</p>
+            <p><span style="font-weight: bold;">'Class'</span> is used for users to sort through agent selects easier during drafts.  There are 4 total class values that can be read:</p>
+            <ul>
+                <li>Controller</li>
+                <li>Duelist</li>
+                <li>Initator</li>
+                <li>Sentinel</li>
+            </ul>
+            <p><span style="font-weight: bold;">'Comp'</span> is used to refer to whether or not the map is in the current competitive (default) map pool.  The value is stored as either "True" or "False".</p>
+            <p>Both files use a similar identification system with the first instance having the ID of <span style="font-weight: bold;">0</span> and further instances being increments of 1.  Since both files are Read-Only, the IDs will be constant for each Agent/Map.
+            These IDs will be used to reference their corresponding Agents/Maps in <span style="font-weight: bold;">Games.JSON</span>.</p>
+            <p>The following is an example for a game draft entry in <span style="font-weight: bold;">Games.JSON</span> using the BO5 format:</p>
+            <pre class="codebox">
+            | Games.JSON |
+            [
+                {
+                "BO": "5",
+                "MapPool": "0|1|2|3|7|9|10",
+                "MapOrder": "3|6|0|1|4|5|2",
+                "AgentOrder": "1|2|3|4|5|6|7|8|9|10|11|12|13|14|15|16|17|18|19|20"
+                "GameID": "0"
+                }
+            ]
+            </pre>
+            <pre class="codebox">
+            [
+                {
+                    "BO": "5",
+                    "MapPool": "Bind|Haven|Split|Ascent|Pearl|Sunset|Abyss",
+                    "MapOrder": "Ascent|Abyss|Bind|Haven|Pearl|Sunset|Split",
+                    "AgentOrder": "Viper|Omen|Killjoy|Cypher|Sova|Sage|Phoenix|Jett|Reyna|Raze|Breach|Skye|Yoru|Astra|KAY/O|...",
+                    "GameID": "0"
+                }
+            ]
+            </pre>
+            <p>For what each category means, see <a href="#Draft">Game Drafting</a></p>
+            <br>
+            <p>For <span style="font-weight: bold;">'MapPool'</span> and <span style="font-weight: bold;">'MapOrder'</span>, indexes of the maps using the <span style="font-weight: bold;">'MapID'</span>s from <span style="font-weight: bold;">Maps.JSON</span>.  These indexes are seperated using a <span style="font-weight: bold;">'|'</span>.  In this example, the <span style="font-weight: bold;">'MapPool'</span> can be translated to <span style="font-weight: bold;">Bind|Haven|Split|Ascent|Pearl|Sunset|Abyss</span>.</p>
+            <p>Similarly, <span style="font-weight: bold;">'AgentOrder'</span> uses the <span style="font-weight: bold;">'AgentID'</span>s from <span style="font-weight: bold;">Agents.JSON</span>.</p>
+    
+            <h1 id="Requests">&nbsp;</h1>
+            <hr>
+            <br>
+    
+            <h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Request Endpoints</h1>
+            <br>
+    
+            <h3><span style="color: green; font-weight: bold;">GET</span> | /api/status</h2>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Used to check for server responsiveness.</p>
+            <h5>Expected Response</h3>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Code 200</p>
+
+            <br>
+
+            <h3><span style="color: green; font-weight: bold;">GET</span> | /api/agents</h2>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns the entire Agents.JSON file.</p>
+            <h5>Expected Response</h3>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Code 200 with JSON File.</p>
+
+            <br>
+
+            <h3><span style="color: green; font-weight: bold;">GET</span> | /api/maps</h2>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns the entire Maps.JSON file.</p>
+            <h5>Expected Response</h3>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Code 200 with JSON File.</p>
+
+            <br>
+
+            <h3><span style="color: green; font-weight: bold;">GET</span> | /api/getAllGames</h2>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns the entire Games.JSON file.</p>
+            <h5>Expected Response</h3>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Code 200 with JSON File.</p>
+
+            <br>
+
+            <h3><span style="color: green; font-weight: bold;">GET</span> | /api/getGame/:GameID</h2>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns a single instance from Games.JSON detailing a singular draft.</p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Requires the following parameter:</p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GameID: "#"</p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ensure the GameID is sent as a string.</p>
+            <h5>Expected Response</h3>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Code 200 with JSON File.</p>
+            <h5>Error</h5>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Code 400 with Error message sent as plaintext.</p>
+
+            <br>
+
+            <h3><span style="color: blue; font-weight: bold;">POST</span> | /api/addGame/:parameters</h2>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Adds an entry to the Games.JSON file.</p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Requires the following parameters:</p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BO: "{1/3/5}"</p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MapPool: "#|#|#|#|#|#|#|#"</p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MapOrder: "#|#|#|#|#|#|#"</p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AgentOrder: "#|#|#|#|#|#|#|#|..."</p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The GameID will be automatically allocated.</p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;For Proper Formatting, see <a href="#JSON">Storage (JSON) Formatting</a></p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ensure all fields are sent as strings.</p>
+            <h5>Expected Response</h3>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Code 200 with GameID sent as plaintext.</p>
+            <h5>Error</h5>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Code 400 with Error message sent as plaintext.</p>
+
+            <br>
+
+            <h3><span style="color: blue; font-weight: bold;">POST</span> | /api/editGame/:Parameters</h2>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Edits (replaces) an entry with given parameters to the Games.JSON file.</p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Requires the following parameters:</p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BO: "#"</p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MapPool: "#|#|#|#|#|#|#|#"</p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MapOrder: "#|#|#|#|#|#|#"</p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AgentOrder: "#|#|#|#|#|#|#|#|..."</p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GameID: "#"</p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;For Proper Formatting, see <a href="#JSON">Storage (JSON) Formatting</a></p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ensure all fields are sent as strings.</p>
+            <h5>Expected Response</h3>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Code 200 with message sent as plaintext.</p>
+            <h5>Error</h5>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Code 400 with Error message sent as plaintext.</p>
+
+            <br>
+
+            <h3><span style="color: blue; font-weight: bold;">POST</span> | /api/editGame/:GameID</h2>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"Deletes" an entry to the Games.JSON file.</p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The instance will become blank in the JSON file.</p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Requires the following parameter:</p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GameID: "#"</p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ensure the GameID is sent as a string.</p>
+            <h5>Expected Response</h3>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Code 200 with JSON File.</p>
+            <h5>Error</h5>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Code 400 with Error message sent as plaintext.</p>
+        </div>
+    </div>
+
+
+</body>
+</html>
+<script src="API.js"></script>

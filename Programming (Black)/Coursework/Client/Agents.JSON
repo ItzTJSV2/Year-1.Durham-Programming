@@ -1,0 +1,127 @@
+[
+    {
+        "name": "Brimstone",
+        "class": "Controller",
+        "agentid": "0"
+    },
+    {
+        "name": "Viper",
+        "class": "Controller",
+        "agentid": "1"
+    },
+    {
+        "name": "Omen",
+        "class": "Controller",
+        "agentid": "2"
+    },
+    {
+        "name": "Killjoy",
+        "class": "Sentinel",
+        "agentid": "3"
+    },
+    {
+        "name": "Cypher",
+        "class": "Sentinel",
+        "agentid": "4"
+    },
+    {
+        "name": "Sova",
+        "class": "Initiator",
+        "agentid": "5"
+    },
+    {
+        "name": "Sage",
+        "class": "Phoenix",
+        "agentid": "6"
+    },
+    {
+        "name": "Phoenix",
+        "class": "Duelist",
+        "agentid": "7"
+    },
+    {
+        "name": "Jett",
+        "class": "Duelist",
+        "agentid": "8"
+    },
+    {
+        "name": "Reyna",
+        "class": "Duelist",
+        "agentid": "9"
+    },
+    {
+        "name": "Raze",
+        "class": "Duelist",
+        "agentid": "10"
+    },
+    {
+        "name": "Breach",
+        "class": "Initiator",
+        "agentid": "11"
+    },
+    {
+        "name": "Skye",
+        "class": "Initiator",
+        "agentid": "12"
+    },
+    {
+        "name": "Yoru",
+        "class": "Duelist",
+        "agentid": "13"
+    },
+    {
+        "name": "Astra",
+        "class": "Controller",
+        "agentid": "14"
+    },
+    {
+        "name": "KAY/O",
+        "class": "Initiator",
+        "agentid": "15"
+    },
+    {
+        "name": "Chamber",
+        "class": "Sentinel",
+        "agentid": "16"
+    },
+    {
+        "name": "Neon",
+        "class": "Duelist",
+        "agentid": "17"
+    },
+    {
+        "name": "Fade",
+        "class": "Initiator",
+        "agentid": "18"
+    },
+    {
+        "name": "Harbor",
+        "class": "Controller",
+        "agentid": "19"
+    },
+    {
+        "name": "Gekko",
+        "class": "Initiator",
+        "agentid": "20"
+    },
+    {
+        "name": "Deadlock",
+        "class": "Sentinel",
+        "agentid": "21"
+    },
+    {
+        "name": "Iso",
+        "class": "Duelist",
+        "agentid": "22"
+    },
+    {
+        "name": "Clove",
+        "class": "Controller",
+        "agentid": "23"
+    },
+    {
+        "name": "Vyse",
+        "class": "Sentinel",
+        "agentid": "24"
+    }
+]

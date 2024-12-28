@@ -1,0 +1,57 @@
+[
+    {
+        "Name": "Bind",
+        "Comp": "True",
+        "MapID": "0"
+    },
+    {
+        "Name": "Haven",
+        "Comp": "True",
+        "MapID": "1"
+    },
+    {
+        "Name": "Split",
+        "Comp": "True",
+        "MapID": "2"
+    },
+    {
+        "Name": "Ascent",
+        "Comp": "True",
+        "MapID": "3"
+    },
+    {
+        "Name": "Icebox",
+        "Comp": "False",
+        "MapID": "4"
+    },
+    {
+        "Name": "Breeze",
+        "Comp": "False",
+        "MapID": "5"
+    },
+    {
+        "Name": "Fracture",
+        "Comp": "False",
+        "MapID": "6"
+    },
+    {
+        "Name": "Pearl",
+        "Comp": "True",
+        "MapID": "7"
+    },
+    {
+        "Name": "Lotus",
+        "Comp": "False",
+        "MapID": "8"
+    },
+    {
+        "Name": "Sunset",
+        "Comp": "True",
+        "MapID": "9"
+    },
+    {
+        "Name": "Abyss",
+        "Comp": "True",
+        "MapID": "10"
+    }
+  ]

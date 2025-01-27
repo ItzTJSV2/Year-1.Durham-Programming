@@ -14,7 +14,7 @@
         </div>
     <div>
         <!--Top Navbar-->
-        <nav class="navbar navbar-expand-lg navbar-light bg-light" style="position: fixed; top: 0; width: 100%; z-index: 1;">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light" style="position: fixed; top: 0; width: 100%;">
             <a class="navbar-brand" style="margin-left: 8%;" href="main.html">Navbar</a>
             <div style="margin-left: auto; margin-right: 8%;" class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
@@ -23,6 +23,9 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="NewGame.html">NEW DRAFT</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="NewTeam.html">NEW TEAM</a>
                     </li>
                 </ul>
             </div>
@@ -46,7 +49,7 @@
             <h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Introduction</h1>
             <br>
 
-            <p>By default <span style="font-style: italic">(can be changed in server.js)</span>,, API Requests are handled by <span style="font-weight: bold;">127.0.0.1</span> on port <span style="font-weight: bold;">8080</span> using the directory <span style="font-weight: bold;">'/api/'</span></p>
+            <p>API Requests are handled by <span style="font-weight: bold;">127.0.0.1</span> on port <span style="font-weight: bold;">8080</span> using the directory <span style="font-weight: bold;">'/api/'</span></p>
             <p>This is a REST API with CRUD (Create, Read, Update, Delete) capabilites for Game Drafting and JSON responses available for Agents and Maps as of 27/12/24</p>
             <p>This API was built by Max M. Tran as a part of the <span style="font-weight: bold;">COMP1101</span> Programming (Black) coursework.</p>
             <p>The following are the NPM packages used:</p>
@@ -316,13 +319,23 @@
 
             <br>
 
+            <h3><span style="color: green; font-weight: bold;">GET</span> | /api/getImage/:FileName</h2>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns a single image file.</p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Requires the following parameter:</p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FileName: "#"</p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ensure the GameID is sent as a string, the file ending in ".jpeg" is optional.</p>
+                <h5>Expected Response</h3>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Code 200 with JPEG File.</p>
+    
+            <br>
+
             <h3><span style="color: blue; font-weight: bold;">POST</span> | /api/addGame/:parameters</h2>
             <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Adds an entry to the Games.JSON file.</p>
             <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Requires the following parameters:</p>
             <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BO: "{1/3/5}"</p>
             <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MapPool: "#|#|#|#|#|#|#|#"</p>
             <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MapOrder: "#|#|#|#|#|#|#"</p>
-            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AgentOrder: "#|#|#|#|#|#|#|#|..."</p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AgentOrder: "#|#|#|#|#|#|#|#|..." (or leave blank "")</p>
             <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The GameID will be automatically allocated.</p>
             <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;For Proper Formatting, see <a href="#JSON">Storage (JSON) Formatting</a></p>
             <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ensure all fields are sent as strings.</p>
@@ -339,7 +352,7 @@
             <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BO: "#"</p>
             <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MapPool: "#|#|#|#|#|#|#|#"</p>
             <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MapOrder: "#|#|#|#|#|#|#"</p>
-            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AgentOrder: "#|#|#|#|#|#|#|#|..."</p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AgentOrder: "#|#|#|#|#|#|#|#|..." (or leave blank "")</p>
             <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GameID: "#"</p>
             <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;For Proper Formatting, see <a href="#JSON">Storage (JSON) Formatting</a></p>
             <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ensure all fields are sent as strings.</p>

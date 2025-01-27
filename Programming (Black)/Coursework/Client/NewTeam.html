@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>New Team</title>
+    <link rel="stylesheet" type="text/css" href="main.css">
+</head>
+<body>
+    <!--Top Navbar-->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" style="position: fixed; top: 0; width: 100%;">
+      <a class="navbar-brand" style="margin-left: 8%;" href="main.html">Navbar</a>
+      <div style="margin-left: auto; margin-right: 8%;" class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+              <li class="nav-item active">
+                  <a class="nav-link" href="API.html">DOCS</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="NewGame.html">NEW DRAFT</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="NewTeam.html">NEW TEAM</a>
+            </li>
+          </ul>
+      </div>
+</nav>
+    <!--Server Disconnect Popup-->
+    <div id="modalBackdrop" class="modal-backdrop">
+            <div class="modal">
+                    <h2>Server Connection Error</h2>
+                    <p>Server connection is not found, automatically attempting to reconnect in <span id="countdown">5</span> seconds.</p>
+            </div>
+    </div>
+
+    <main> <!--Main Content-->
+        <br>
+        <br>
+        <br>
+        <br>
+    
+        <h1 style="text-align: center; margin-top: 0;">Add a New Team</h1>
+        <br>
+        <div style="display: flex; justify-content: center; align-items: center; height: 50vh;">
+            <form id="teamForm" style="padding: 15px;">
+                <div style="display: flex; margin-bottom: 15px; align-items: center;">
+                    <label for="name" style="width: 100px; margin-right: 15px;">Team Name:</label>
+                    <input type="text" id="name" name="name" required style="width: 200px; padding: 8px;">
+                </div>
+                
+                <div style="display: flex; margin-bottom: 15px; align-items: center;">
+                    <label for="player1" style="width: 100px; margin-right: 15px;">Player 1:</label>
+                    <input type="text" id="player1" name="player1" required style="width: 200px; padding: 8px;">
+                </div>
+                
+                <div style="display: flex; margin-bottom: 15px; align-items: center;">
+                    <label for="player2" style="width: 100px; margin-right: 15px;">Player 2:</label>
+                    <input type="text" id="player2" name="player2" required style="width: 200px; padding: 8px;">
+                </div>
+                
+                <div style="display: flex; margin-bottom: 15px; align-items: center;">
+                    <label for="player3" style="width: 100px; margin-right: 15px;">Player 3:</label>
+                    <input type="text" id="player3" name="player3" required style="width: 200px; padding: 8px;">
+                </div>
+                
+                <div style="display: flex; margin-bottom: 15px; align-items: center;">
+                    <label for="player4" style="width: 100px; margin-right: 15px;">Player 4:</label>
+                    <input type="text" id="player4" name="player4" required style="width: 200px; padding: 8px;">
+                </div>
+                
+                <div style="display: flex; margin-bottom: 15px; align-items: center;">
+                    <label for="player5" style="width: 100px; margin-right: 15px;">Player 5:</label>
+                    <input type="text" id="player5" name="player5" required style="width: 200px; padding: 8px;">
+                </div>
+    
+                <input type="submit" value="Submit" style="width: 220px; padding: 10px;">
+            </form>
+        </div>
+    </main>
+    
+    
+    
+    
+</body>
+</html>
+<script src="NewTeam.js"></script>

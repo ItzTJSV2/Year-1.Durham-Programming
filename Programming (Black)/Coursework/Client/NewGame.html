@@ -19,7 +19,6 @@
           </ul>
       </div>
   </nav>
-
     <!--Server Disconnect Popup-->
     <div id="modalBackdrop" class="modal-backdrop">
         <div class="modal">
@@ -28,8 +27,87 @@
         </div>
     </div>
 
-    <main>
-        <!-- Add your API documentation content here -->
+    <main> 
+        <br>
+        <br>
+        <br>
+        <br>
+        <!--Settings Selection-->
+        <div id="settings" class="level active" style="display: flex; flex-direction: column; justify-content: space-between; height: 100vh;">
+            <h1>Settings</h1>
+            <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; flex-grow: 1;">
+                <div style="display: flex; margin-bottom: 15px; align-items: center;">
+                    <label for="dropdown1" style="width: 100px; margin-right: 15px;">Team A:</label>
+                    <select id="dropdown1" name="dropdown1" style="width: 200px; padding: 8px;"></select>
+                </div>
+                <div style="display: flex; margin-bottom: 15px; align-items: center;">
+                    <label for="dropdown2" style="width: 100px; margin-right: 15px;">Team B:</label>
+                    <select id="dropdown2" name="dropdown2" style="width: 200px; padding: 8px;"></select>
+                </div>
+                <div style="display: flex; margin-bottom: 15px; align-items: center;">
+                    <label for="dropdown3" style="width: 100px; margin-right: 15px;">Best Of:</label>
+                    <select id="dropdown3" name="dropdown1" style="width: 200px; padding: 8px;">
+                        <option id="1">1</option>
+                        <option id="3">3</option>
+                        <option id="5">5</option>
+                    </select>
+                </div>
+                <div style="display: flex; margin-bottom: 15px; align-items: center;">
+                    <label for="checkbox1" style="width: 100px; margin-right: 15px;">Agent Picks & Bans:</label>
+                    <input type="checkbox" id="checkbox1" name="checkbox1" style="width: 20px; height: 20px;" onchange="toggleImageContainer()">
+                </div>
+                <label style="margin-bottom: 10px;">Map Pool (must be 7):</label>
+                <div id="image-container" style="display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; margin-top: 15px;"></div>
+            </div>  
+            <div style="display: flex; justify-content: center; padding: 15px;">
+                <button onclick="goToScene('settings', 'mapDraft')" 
+                    style="background-color: #007bff; color: #fff; border: none; border-radius: 8px; padding: 10px 20px; font-size: 16px; cursor: pointer; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); transition: all 0.2s ease;"
+                    onmouseover="this.style.backgroundColor='#0056b3'; this.style.transform='translateY(-2px)';"
+                    onmouseout="this.style.backgroundColor='#007bff'; this.style.transform='translateY(0)';">
+                    Continue
+                </button>
+            </div>
+        </div>
+
+        <!--Map Draft Selection-->
+        <div id="mapDraft" class="level" style="display: none; flex-direction: column; justify-content: space-between; height: 100vh;">
+            <h1>Map Veto</h1>
+            <h2 id="bestOfLabel"></h3>
+            <h3 id="CurrentTeam"></h3>
+            <p id="VetoState"></p>
+
+            <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; flex-grow: 1;">
+                <label style="margin-bottom: 10px;">Remaining Map Pool</label>
+                <div id="map-container" style="display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; margin-top: 15px;"></div>
+            </div> 
+
+
+
+
+            <div style="display: flex; justify-content: center; padding: 15px;">
+                <button onclick="goToScene('mapDraft', 'agentDraft')" 
+                    style="background-color: #007bff; color: #fff; border: none; border-radius: 8px; padding: 10px 20px; font-size: 16px; cursor: pointer; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); transition: all 0.2s ease;"
+                    onmouseover="this.style.backgroundColor='#0056b3'; this.style.transform='translateY(-2px)';"
+                    onmouseout="this.style.backgroundColor='#007bff'; this.style.transform='translateY(0)';">
+                    Continue
+                </button>
+            </div>
+
+
+
+        </div>
+
+        <!--Agent Draft Selection-->
+        <div id="agentDraft" class="level">
+            <h1>Agent Draft</h1>
+            <button onclick="goToScene('summary')">Next: Summary</button>
+        </div>
+
+        <!--Summary-->
+        <div id="summary" class="level">
+            <h1>Summary</h1>
+            <button onclick="goToScene('settings')">Next: Settings</button>
+        </div>
     </main>
 
 

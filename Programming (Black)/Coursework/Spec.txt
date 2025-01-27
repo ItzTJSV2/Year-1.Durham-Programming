@@ -5,9 +5,6 @@ When 1 user updates the state, update the JSON state
 1 user for now for simplicity
 
 Maps:
-Flip a coin (or manually choose)
-Heads --> User 1 = Team A | User 2 = Team B
-Tails --> User 1 = Team B | User 2 = Team A
 Can Select BO1, BO3, BO5, Mappool (Must be 7 Total)
 BO1:
 Team A bans 1
@@ -122,16 +119,15 @@ MapOrder=
 BAN   |BAN  |PICK|PICK| BAN  |BAN   |PICK (Default)
 # BAN/PICK not needed to be dictated
 
-AgentOrder:
-
-
 Game JSON File:
 [
     {
+      "Teams": "#/#" #Ids, TeamA/TeamB
       "BO": "1/3/5",
       "MapPool": "Bind|Haven|Split|Ascent|Pearl|Sunset|Abyss", #len = 7
       "MapOrder": "3|6|0|1|4|5|2",  #Ascent|Abyss|Bind|Haven|Pearl|Sunset|Split
       "AgentOrder": "1|2|3|4|5|6|7|8|9|10|11|12|13|14|15|16|17|18|19|20" or ""
+
       "GameID": "0" # Just rolling integer for now
     },
     ...
@@ -155,4 +151,14 @@ Map JSON File:
       "MapID": "0"
   },
   ...
+]
+
+Teams JSON File:
+[
+  {
+      "TeamID": #
+      "Name": ####,
+      "Players", #/#/# # Names
+      "Matches": "#/#/#/#". # Integers
+  }
 ]

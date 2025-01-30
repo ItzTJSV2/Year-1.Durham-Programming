@@ -57,7 +57,7 @@ app.get('/api/maps', function(req, res) {
 app.post('/api/addGame', function(req, res) { // POST
     // 8080/addGame?BO=#&MapPool=###&MapOrder=###&MapOrder=###&AgentOrder=###
     // Format Checking
-    if (req.body.BO == undefined || req.body.MapPool == undefined || req.body.AgentOrder == undefined || req.body.MapOrder == undefined) {
+    if (req.body.BO == undefined || req.body.MapPool == undefined || req.body.AgentOrder == undefined || req.body.MapOrder == undefined || req.body.Teams == undefined) {
         console.log('400 "Bad Request" error raised.');
         res.status(400).send("Error 400: Field(s) empty.");
         return
@@ -72,9 +72,9 @@ app.post('/api/addGame', function(req, res) { // POST
         res.status(400).send("Error 400: AgentOrder is not 20 agents and is not empty.");
         return
     }
-    if ((req.body.MapOrder).split('|').length != 7 && req.body.MapOrder != "") {
+    if ((req.body.Teams).split('|').length != 2) {
         console.log('400 "Bad Request" error raised.');
-        res.status(400).send("Error 400: AgentOrder is not 20 agents and is not empty.");
+        res.status(400).send("Error 400: Teams is not 2.");
         return
     }
 
@@ -83,6 +83,7 @@ app.post('/api/addGame', function(req, res) { // POST
         MapPool: req.body.MapPool,
         MapOrder: req.body.MapOrder,
         AgentOrder: req.body.AgentOrder,
+        Teams: req.body.Teams,
         GameID: gameCount.toString()
     }
     console.log('Recieved POST for GameID: ' + gameCount)
@@ -114,7 +115,7 @@ app.get('/api/getGame', function(req, res) { // GET
 });
 
 app.post('/api/editGame', function(req, res) { // POST
-    if (req.body.BO == undefined || req.body.MapPool == undefined || req.body.AgentOrder == undefined || req.body.MapOrder == undefined || req.body.Teams) {
+    if (req.body.BO == undefined || req.body.MapPool == undefined || req.body.AgentOrder == undefined || req.body.MapOrder == undefined || req.body.Teams == undefined) {
         console.log('400 "Bad Request" error raised.');
         res.status(400).send("Error 400: Fields Empty.");
         return
@@ -134,9 +135,9 @@ app.post('/api/editGame', function(req, res) { // POST
         res.status(400).send("Error 400: AgentOrder is not 20 agents and is not empty.");
         return
     }
-    if ((req.body.MapOrder).split('|').length != 7 && req.body.MapOrder != "") {
+    if ((req.body.Teams).split('|').length != 2) {
         console.log('400 "Bad Request" error raised.');
-        res.status(400).send("Error 400: AgentOrder is not 20 agents and is not empty.");
+        res.status(400).send("Error 400: Teams is not 2.");
         return
     }
     editGame = {
@@ -145,6 +146,7 @@ app.post('/api/editGame', function(req, res) { // POST
         MapPool: req.body.MapPool,
         MapOrder: req.body.MapOrder,
         AgentOrder: req.body.AgentOrder,
+        Teams: req.body.Teams,
         GameID: req.body.GameID
     }
     console.log('Recieved POST for GameID: ' + req.body.GameID)
@@ -209,7 +211,6 @@ app.post('/api/addTeam', function(req, res) { // POST
         TeamID: teamCount.toString(),
         Name: req.body.Name,
         Players: req.body.Players,
-        Matches: ""
     }
     console.log('Recieved POST for TeamID: ' + teamCount)
     teamfile.push(addTeam)
@@ -240,7 +241,7 @@ app.get('/api/getTeam', function(req, res) { // GET
 });
 
 app.post('/api/editTeam', function(req, res) { 
-    if (req.body.Name == undefined || req.body.Players == undefined || req.body.Matches == undefined) {
+    if (req.body.Name == undefined || req.body.Players == undefined) {
         console.log('400 "Bad Request" error raised. | Fields Empty');
         res.status(400).send("Error 400: Fields Empty.");
         return;
@@ -254,7 +255,6 @@ app.post('/api/editTeam', function(req, res) {
         TeamID: req.body.TeamID,
         Name: req.body.Name,
         Players: req.body.Players,
-        Matches: req.body.Matches
     };
     console.log('Received POST for TeamID: ' + req.body.TeamID);
     let teamFound = false;

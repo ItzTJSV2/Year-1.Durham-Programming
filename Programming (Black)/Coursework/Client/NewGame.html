@@ -7,18 +7,27 @@
 <body>
     <!--Top Navbar-->
     <nav class="navbar navbar-expand-lg navbar-light bg-light" style="position: fixed; top: 0; width: 100%;">
-      <a class="navbar-brand" style="margin-left: 8%;" href="main.html">Navbar</a>
-      <div style="margin-left: auto; margin-right: 8%;" class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav mr-auto">
-              <li class="nav-item active">
-                  <a class="nav-link" href="API.html">DOCS</a>
+        <a class="navbar-brand" style="margin-left: 8%;" href="main.html">Valorant Drafting</a>
+        <div style="margin-left: auto; margin-right: 8%;" class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="API.html">DOCS</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="main.html">ALL DRAFTS</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="NewGame.html">NEW DRAFT</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="AllTeams.html">ALL TEAMs</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="NewTeam.html">NEW TEAM</a>
               </li>
-              <li class="nav-item">
-                  <a class="nav-link" href="NewGame.html">NEW DRAFT</a>
-              </li>
-          </ul>
-      </div>
-  </nav>
+            </ul>
+        </div>
+    </nav>
     <!--Server Disconnect Popup-->
     <div id="modalBackdrop" class="modal-backdrop">
         <div class="modal">
@@ -28,7 +37,6 @@
     </div>
 
     <main> 
-        <br>
         <br>
         <br>
         <br>
@@ -54,7 +62,7 @@
                 </div>
                 <div style="display: flex; margin-bottom: 15px; align-items: center;">
                     <label for="checkbox1" style="width: 100px; margin-right: 15px;">Agent Picks & Bans:</label>
-                    <input type="checkbox" id="checkbox1" name="checkbox1" style="width: 20px; height: 20px;" onchange="toggleImageContainer()">
+                    <input type="checkbox" id="checkbox1" name="checkbox1" style="width: 20px; height: 20px;">
                 </div>
                 <label style="margin-bottom: 10px;">Map Pool (must be 7):</label>
                 <div id="image-container" style="display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; margin-top: 15px;"></div>
@@ -68,45 +76,77 @@
                 </button>
             </div>
         </div>
-
         <!--Map Draft Selection-->
         <div id="mapDraft" class="level" style="display: none; flex-direction: column; justify-content: space-between; height: 100vh;">
-            <h1>Map Veto</h1>
-            <h2 id="bestOfLabel"></h3>
-            <h3 id="CurrentTeam"></h3>
-            <p id="VetoState"></p>
-
             <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; flex-grow: 1;">
+                <h1>Map Veto</h1>
+                <h2 id="bestOfLabel"></h3>
+                <h3 id="CurrentTeam"></h3>
+                <h3 id="CurrentState"></h3>
+                <p id="VetoState"></p>
                 <label style="margin-bottom: 10px;">Remaining Map Pool</label>
                 <div id="map-container" style="display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; margin-top: 15px;"></div>
             </div> 
-
-
-
-
-            <div style="display: flex; justify-content: center; padding: 15px;">
-                <button onclick="goToScene('mapDraft', 'agentDraft')" 
-                    style="background-color: #007bff; color: #fff; border: none; border-radius: 8px; padding: 10px 20px; font-size: 16px; cursor: pointer; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); transition: all 0.2s ease;"
-                    onmouseover="this.style.backgroundColor='#0056b3'; this.style.transform='translateY(-2px)';"
-                    onmouseout="this.style.backgroundColor='#007bff'; this.style.transform='translateY(0)';">
-                    Continue
-                </button>
-            </div>
-
-
-
         </div>
 
         <!--Agent Draft Selection-->
-        <div id="agentDraft" class="level">
-            <h1>Agent Draft</h1>
-            <button onclick="goToScene('summary')">Next: Summary</button>
+        <div id="agentDraft" class="level" style="display: none; flex-direction: column; justify-content: space-between; height: 100vh;">
+            <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; flex-grow: 1;">
+                <h3 id="CurrentTeam1"></h3>
+                <table style="border-collapse: collapse; width: 100%; table-layout: fixed;">
+                    <tr>
+                        <td style="border-right: 2px solid black; border-bottom: 2px solid black; width: 33%; height: 50px;">
+                            <h1 style="margin: 0; text-align: center; font-size: 18px;"><strong>Agent Veto</strong></h1>
+                        </td>
+                        <td style="border-right: 2px solid black; border-bottom: 2px solid black; width: 33%; height: 50px; text-align: center;">
+                            <strong>Bans</strong>
+                        </td>
+                        <td style="border-bottom: 2px solid black; width: 33%; height: 50px; text-align: center;">
+                            <strong>Picks</strong>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td id="TeamAName" style="border-right: 2px solid black; border-bottom: 2px solid black; width: 33%; height: 50px;"></td>
+                        <td id="TeamABans" style="border-right: 2px solid black; border-bottom: 2px solid black; width: 33%; height: 50px;"></td>
+                        <td id="TeamAPicks" style="border-bottom: 2px solid black; width: 33%; height: 50px;"></td>
+                    </tr>
+                    <tr>
+                        <td id="TeamBName" style="border-right: 2px solid black; width: 33%; height: 50px;"></td>
+                        <td id="TeamBBans" style="border-right: 2px solid black; width: 33%; height: 50px;"></td>
+                        <td id="TeamBPicks" style="width: 33%; height: 50px; text-align: center;">
+                        </td>
+                    </tr>
+                </table>
+                <h3 id="CurrentState1"></h3>
+                <label style="margin-bottom: 10px;">Remaining Agent Pool</label>
+                <div id="agent-container" style="display: flex; flex-wrap: wrap; gap: 5px; justify-content: center; margin-top: 5px;"></div>
+            </div> 
         </div>
 
         <!--Summary-->
-        <div id="summary" class="level">
-            <h1>Summary</h1>
-            <button onclick="goToScene('settings')">Next: Settings</button>
+        <div id="summary" class="level" style="display: none; flex-direction: column; justify-content: space-between; height: 100vh;">
+            <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; flex-grow: 1;">
+                <h1>Summary</h1>
+                <label style="margin-bottom: 10px;">Map Veto</label>
+                <div id="summary-map-container" style="display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; margin-top: 15px;"></div>
+                <label id="AgentVetoDisplay" style="margin-bottom: 10px;"><br><br><br><br><br><br>Agent Picks</label>
+                <table id="AgentVetoTable" style="border-collapse: collapse; width: 100%; table-layout: fixed;">
+                    <tr>
+                        <td id="TeamADisplay" style="border-right: 2px solid black; border-bottom: 2px solid black; width: 33%; height: 50px; text-align: center;"></td>
+                        <td id="TeamBDisplay" style="border-bottom: 2px solid black; width: 33%; height: 50px; text-align: center;"></td>
+                    </tr>
+                    <tr>
+                        <td style="border-right: 2px solid black; width: 33%; height: 50px; text-align: center;"><div id="summary-agent-container1" style="display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; margin-top: 15px;"></div></td>
+                        <td style="width: 33%; height: 50px; text-align: center;"><div id="summary-agent-container2" style="display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; margin-top: 15px;"></div></td>
+                    </tr>
+                </table>
+            </div> 
+            <button onclick="AddGame();" 
+                    style="background-color: #007bff; color: #fff; border: none; border-radius: 8px; padding: 10px 20px; font-size: 16px; cursor: pointer; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); transition: all 0.2s ease;"
+                    onmouseover="this.style.backgroundColor='#0056b3'; this.style.transform='translateY(-2px)';"
+                    onmouseout="this.style.backgroundColor='#007bff'; this.style.transform='translateY(0)';">
+                    Confirm Game
+            </button>
         </div>
     </main>
 

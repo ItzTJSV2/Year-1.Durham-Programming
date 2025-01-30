@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Valorant Draft</title>
+    <link rel="stylesheet" type="text/css" href="main.css">
+</head>
+
+<body>
+    <!--Top Navbar-->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" style="position: fixed; top: 0; width: 100%;">
+        <a class="navbar-brand" style="margin-left: 8%;" href="main.html">Valorant Drafting</a>
+        <div style="margin-left: auto; margin-right: 8%;" class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="API.html">DOCS</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="main.html">ALL DRAFTS</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="NewGame.html">NEW DRAFT</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="AllTeams.html">ALL TEAMs</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="NewTeam.html">NEW TEAM</a>
+              </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!--Server Disconnect Popup-->
+    <div id="modalBackdrop" class="modal-backdrop">
+        <div class="modal">
+            <h2>Server Connection Error</h2>
+            <p>Server connection is not found, automatically attempting to reconnect in <span id="countdown">5</span> seconds.</p>
+        </div>
+    </div>
+    <main>
+        <br>
+        <br>
+        <br>
+        <br>
+        <div id="summary" class="level active" style="flex-direction: column; justify-content: space-between; height: 100vh;">
+            <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; flex-grow: 1;">
+                <h1>Summary</h1>
+                <label style="margin-bottom: 10px;">Map Veto</label>
+                <div id="summary-map-container" style="display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; margin-top: 15px;"></div>
+                <label id="AgentVetoDisplay" style="margin-bottom: 10px;"><br><br><br><br><br><br>Agent Picks</label>
+                <table id="AgentVetoTable" style="border-collapse: collapse; width: 100%; table-layout: fixed;">
+                    <tr>
+                        <td id="TeamADisplay" style="border-right: 2px solid black; border-bottom: 2px solid black; width: 33%; height: 50px; text-align: center;"></td>
+                        <td id="TeamBDisplay" style="border-bottom: 2px solid black; width: 33%; height: 50px; text-align: center;"></td>
+                    </tr>
+                    <tr>
+                        <td style="border-right: 2px solid black; width: 33%; height: 50px; text-align: center;"><div id="summary-agent-container1" style="display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; margin-top: 15px;"></div></td>
+                        <td style="width: 33%; height: 50px; text-align: center;"><div id="summary-agent-container2" style="display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; margin-top: 15px;"></div></td>
+                    </tr>
+                </table>
+            </div> 
+        </div>
+    </main>
+    
+</body>
+</html>
+<script src="GetGame.js"></script>

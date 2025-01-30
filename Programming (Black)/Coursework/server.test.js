@@ -30,7 +30,8 @@ describe("Testing server.app.js", () => {
             BO: "5",
             MapPool: "1|2|3|4|5|6|7",
             MapOrder: "1|2|3|4|5|6|7",
-            AgentOrder: "1|2|3|4|5|6|7|8|9|10|11|12|13|14|15|16|17|18|19|20"
+            AgentOrder: "1|2|3|4|5|6|7|8|9|10|11|12|13|14|15|16|17|18|19|20",
+            Teams: "5|4",
         };
 
         return request(app)
@@ -76,6 +77,7 @@ describe("Testing server.app.js", () => {
             MapPool: "7|2|3|4|5|6|1",
             MapOrder: "7|2|3|4|5|6|1",
             AgentOrder: "1|2|3|4|5|6|7|9|8|10|11|12|13|14|15|16|17|18|19|20",
+            Teams: "4|5",
             GameID: gameCount
         };
 
@@ -166,7 +168,6 @@ describe("Testing server.app.js", () => {
         const teamData = {
             Name: "Team Testing",
             Players: "John|Doe|Jane|Doe|Player5",
-            Matches: "1|2|3",
             TeamID: teamCount
         };
 

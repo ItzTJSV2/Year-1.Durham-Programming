@@ -115,9 +115,10 @@ Example for BO3:
 Map Pool: Bind|Haven|Split|Ascent|Pearl|Sunset|Abyss
 MapOrder=
 "3|6|0|1|4|5|2"
-= Ascent|Abyss|Bind|Haven|Pearl|Sunset|Split
+= Ascent|Abyss|Bind/A|Haven/A|Pearl|Sunset|Split
 BAN   |BAN  |PICK|PICK| BAN  |BAN   |PICK (Default)
 # BAN/PICK not needed to be dictated
+On picked maps, /# refers to the team on ATTACK
 
 Game JSON File:
 [

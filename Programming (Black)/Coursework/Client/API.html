@@ -42,6 +42,7 @@
             <a href="#Intro">Introduction</a>
             <a href="#Draft">Game Drafting</a>
             <a href="#JSON">Storage (JSON) Formatting</a>
+            <a href="#FileStructure">File Structure</a>
             <a href="#Requests">Requests</a>
         </div>
         <!--Page (Api Documentation) Content-->
@@ -56,7 +57,7 @@
             <br>
 
             <p>API Requests are handled by <span style="font-weight: bold;">127.0.0.1</span> on port <span style="font-weight: bold;">8080</span> using the directory <span style="font-weight: bold;">'/api/'</span></p>
-            <p>This is a REST API with CRUD (Create, Read, Update, Delete) capabilites for Game Drafting and JSON responses available for Agents and Maps as of 27/12/24</p>
+            <p>This is a REST API with CRUD (Create, Read, Update, Delete) capabilites for Game Drafting/Team Creation and JSON responses available for Agents and Maps in Valorant as of 27/12/24</p>
             <p>This API was built by Max M. Tran as a part of the <span style="font-weight: bold;">COMP1101</span> Programming (Black) coursework.</p>
             <p>The following are the NPM packages used:</p>
             <ul>
@@ -67,8 +68,15 @@
                 <li>fs 0.0.1</li>
                 <li>node 23.1.0</li>
                 <li>promises 0.2.5</li>
+                <li>jest 29.7.0</li>
+                <li>supertest 7.0.0</li>
             </ul>
-    
+            <br>
+            <p>By default, there are two commands to be run with Node Package Manager (npm):</p>
+            <ul>
+                <li>npm start - Starts the express server and hosts on 127.0.0.1</li>
+                <li>npm test - Runs 18 tests for all 16 api functions</li>
+            </ul>
             <h1 id="Draft">&nbsp;</h1>
             <hr>
             <br>
@@ -188,16 +196,19 @@
     
             <h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Storage (JSON) Formatting</h1>
             <br>
-            <p>There are 3 JSON Files at your disposal:</p>
+            <p>There are 4 JSON Files at your disposal:</p>
             <ul>
                 <li>
                     <a id="hyper1" href="Games.JSON">Games.JSON</a>
                 </li>
                 <li>
-                    <a id="hyper2" href="Agents.JSON">Agents.JSON</a>
+                    <a id="hyper2" href="Teams.JSON">Teams.JSON</a>
                 </li>
                 <li>
-                    <a id="hyper3" href="Maps.JSON">Maps.JSON</a>
+                    <a id="hyper3" href="Agents.JSON">Agents.JSON</a>
+                </li>
+                <li>
+                    <a id="hyper4" href="Maps.JSON">Maps.JSON</a>
                 </li>
             </ul>
             <br>
@@ -235,7 +246,7 @@
                 ...
             ]
             </pre>
-            <p><a id="hyper4" href="https://valorant.fandom.com/wiki/VALORANT_Wiki">Data is manually taken from Valorant Fandom Wiki Page.</a></p>
+            <p><a id="hyper5" href="https://valorant.fandom.com/wiki/VALORANT_Wiki">Data is manually taken from Valorant Fandom Wiki Page.</a></p>
             <br>
             <p>In both cases, <span style="font-weight: bold;">'Name'</span> is used for displaying their titles for the user, but also used to find their corresponding image in the <span style="font-weight: bold;">'/Client/Assets'</span> folder.
             All images are stored in the JPEG format.</p>
@@ -257,7 +268,8 @@
                 "BO": "5",
                 "MapPool": "0|1|2|3|7|9|10",
                 "MapOrder": "3|6|0|1|4|5|2",
-                "AgentOrder": "1|2|3|4|5|6|7|8|9|10|11|12|13|14|15|16|17|18|19|20"
+                "AgentOrder": "1|2|3|4|5|6|7|8|9|10|11|12|13|14|15|16|17|18|19|20",
+                "Teams": 0/1,
                 "GameID": "0"
                 }
             ]
@@ -269,6 +281,7 @@
                     "MapPool": "Bind|Haven|Split|Ascent|Pearl|Sunset|Abyss",
                     "MapOrder": "Ascent|Abyss|Bind|Haven|Pearl|Sunset|Split",
                     "AgentOrder": "Viper|Omen|Killjoy|Cypher|Sova|Sage|Phoenix|Jett|Reyna|Raze|Breach|Skye|Yoru|Astra|KAY/O|...",
+                    "Teams": 0/1,
                     "GameID": "0"
                 }
             ]
@@ -276,7 +289,91 @@
             <p>For what each category means, see <a href="#Draft">Game Drafting</a></p>
             <br>
             <p>For <span style="font-weight: bold;">'MapPool'</span> and <span style="font-weight: bold;">'MapOrder'</span>, indexes of the maps using the <span style="font-weight: bold;">'MapID'</span>s from <span style="font-weight: bold;">Maps.JSON</span>.  These indexes are seperated using a <span style="font-weight: bold;">'|'</span>.  In this example, the <span style="font-weight: bold;">'MapPool'</span> can be translated to <span style="font-weight: bold;">Bind|Haven|Split|Ascent|Pearl|Sunset|Abyss</span>.</p>
-            <p>Similarly, <span style="font-weight: bold;">'AgentOrder'</span> uses the <span style="font-weight: bold;">'AgentID'</span>s from <span style="font-weight: bold;">Agents.JSON</span>.</p>
+            <p>Similarly, <span style="font-weight: bold;">'AgentOrder'</span> uses the <span style="font-weight: bold;">'AgentID'</span>s from <span style="font-weight: bold;">Agents.JSON</span> and <span style="font-weight: bold;">'Teams'</span> uses the <span style="font-weight: bold;">'TeamID'</span>s from <span style="font-weight: bold;">Teams.JSON</span></p>
+
+            <p>The following is an example for a team entry in <span style="font-weight: bold;">Teams.JSON</span>.</p>
+            <pre class="codebox">
+                | Teams.JSON |
+                [
+                    {
+                    "TeamID": "0",
+                    "Name": "NRG",
+                    "Players": "Mada|Verno|FNS|s0m|Ethan"
+                    }
+                ]
+                </pre>
+            <p>Players are just plaintext names stored between '|' for decoding into lists.</p>
+
+            <h1 id="FileStructure">&nbsp;</h1>
+            <hr>
+            <br>
+    
+            <h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;File Structure</h1>
+            <br>
+            <p>Server Files are put in the root folder with a <span style="font-weight: bold;">'Client'</span> folder inside.</p>
+            <p>/Client:</p>
+            <ul>
+                <li>/Assets</li>
+                <li>404.html</li>
+                <li>AllTeams.html</li>
+                <li>AllTeams.js</li>
+                <li>API.html</li>
+                <li>API.js</li>
+                <li>GetGame.html</li>
+                <li>GetGame.js</li>
+                <li>main.html</li>
+                <li>main.js</li>
+                <li>main.css</li>
+                <li>NewGame.html</li>
+                <li>NewGame.js</li>
+                <li>NewTeam.html</li>
+                <li>NewTeam.js</li>
+                <li>Agents.JSON </li>
+                <li>Games.JSON</li>
+                <li>Maps.JSON</li>
+                <li>Teams.JSON</li>
+            </ul>
+            <p>/Client/Assets:</p>
+            <ul>
+                <li>Abyss.jpeg</li>
+                <li>Ascent.jpeg</li>
+                <li>Astra.jpeg</li>
+                <li>Bind.jpeg</li>
+                <li>Breach.jpeg</li>
+                <li>Breeze.jpeg</li>
+                <li>Brimstone.jpeg</li>
+                <li>Chamber.jpeg</li>
+                <li>Clove.jpeg</li>
+                <li>Cypher.jpeg</li>
+                <li>Deadlock.jpeg</li>
+                <li>Error.jpeg</li>
+                <li>Fade.jpeg</li>
+                <li>Fracture.jpeg</li>
+                <li>Gekko.jpeg</li>
+                <li>Harbor.jpeg</li>
+                <li>Haven.jpeg</li>
+                <li>Icebox.jpeg</li>
+                <li>Iso.jpeg</li>
+                <li>Jett.jpeg</li>
+                <li>KAYO.jpeg</li>
+                <li>Killjoy.jpeg</li>
+                <li>Lotus.jpeg</li>
+                <li>Neon.jpeg</li>
+                <li>Omen.jpeg</li>
+                <li>Pearl.jpeg</li>
+                <li>Phoenix.jpeg</li>
+                <li>Raze.jpeg</li>
+                <li>Reyna.jpeg</li>
+                <li>Sage.jpeg</li>
+                <li>Skye.jpeg</li>
+                <li>Sova.jpeg</li>
+                <li>Split.jpeg</li>
+                <li>Sunset.jpeg</li>
+                <li>Viper.jpeg</li>
+                <li>Vyse.jpeg</li>
+                <li>Yoru.jpeg</li>
+            </ul>
+            <p>These files are the ones sourced in the /api/GetImage function.</p>
     
             <h1 id="Requests">&nbsp;</h1>
             <hr>
@@ -306,6 +403,18 @@
 
             <br>
 
+            <h3><span style="color: green; font-weight: bold;">GET</span> | /api/getImage/:FileName</h2>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns an image (JPEG) file.</p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Requires the following parameter:</p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FileName: "#"</p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ensure the FileName is sent as a string.</p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;For valid FileNames, see <a href="#FileStructure">File Structure</a></p> .</p>
+            <h5>Expected Response</h3>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Code 200 with JPEG File.</p>
+            <h5>Error</h5>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Code 400 with a corresponding Error message sent as plaintext.</p>
+            <br>
+
             <h3><span style="color: green; font-weight: bold;">GET</span> | /api/getAllGames</h2>
             <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns the entire Games.JSON file.</p>
             <h5>Expected Response</h3>
@@ -321,55 +430,66 @@
             <h5>Expected Response</h3>
             <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Code 200 with JSON File.</p>
             <h5>Error</h5>
-            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Code 400 with Error message sent as plaintext.</p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Code 400 with a corresponding Error message sent as plaintext.</p>
 
             <br>
 
-            <h3><span style="color: green; font-weight: bold;">GET</span> | /api/getImage/:FileName</h2>
-                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns a single image file.</p>
-                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Requires the following parameter:</p>
-                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FileName: "#"</p>
-                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ensure the GameID is sent as a string, the file ending in ".jpeg" is optional.</p>
-                <h5>Expected Response</h3>
-                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Code 200 with JPEG File.</p>
-    
+            <h3><span style="color: green; font-weight: bold;">GET</span> | /api/getAllTeams</h2>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns the entire Teams.JSON file.</p>
+            <h5>Expected Response</h3>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Code 200 with JSON File.</p>
+
             <br>
 
-            <h3><span style="color: blue; font-weight: bold;">POST</span> | /api/addGame/:parameters</h2>
+            <h3><span style="color: green; font-weight: bold;">GET</span> | /api/getTeam/:id</h2>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Returns a single instance from Teams.JSON detailing a singular draft.</p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Requires the following parameter:</p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;id: "#"</p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ensure the id is sent as a string.</p>
+            <h5>Expected Response</h3>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Code 200 with JSON File.</p>
+            <h5>Error</h5>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Code 400 with a corresponding Error message sent as plaintext.</p>
+
+            <br>
+
+            <h3><span style="color: blue; font-weight: bold;">POST</span> | /api/addGame</h2>
             <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Adds an entry to the Games.JSON file.</p>
             <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Requires the following parameters:</p>
             <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BO: "{1/3/5}"</p>
             <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MapPool: "#|#|#|#|#|#|#|#"</p>
             <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MapOrder: "#|#|#|#|#|#|#"</p>
             <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AgentOrder: "#|#|#|#|#|#|#|#|..." (or leave blank "")</p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Teams: "#|#"</p>
             <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The GameID will be automatically allocated.</p>
             <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;For Proper Formatting, see <a href="#JSON">Storage (JSON) Formatting</a></p>
             <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ensure all fields are sent as strings.</p>
             <h5>Expected Response</h3>
-            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Code 200 with GameID sent as plaintext.</p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Code 200 with the allocated GameID sent as plaintext.</p>
             <h5>Error</h5>
-            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Code 400 with Error message sent as plaintext.</p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Code 400 with a corresponding Error message sent as plaintext.</p>
 
             <br>
 
-            <h3><span style="color: blue; font-weight: bold;">POST</span> | /api/editGame/:Parameters</h2>
-            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Edits (replaces) an entry with given parameters to the Games.JSON file.</p>
-            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Requires the following parameters:</p>
-            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BO: "#"</p>
-            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MapPool: "#|#|#|#|#|#|#|#"</p>
-            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MapOrder: "#|#|#|#|#|#|#"</p>
-            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AgentOrder: "#|#|#|#|#|#|#|#|..." (or leave blank "")</p>
-            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GameID: "#"</p>
-            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;For Proper Formatting, see <a href="#JSON">Storage (JSON) Formatting</a></p>
-            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ensure all fields are sent as strings.</p>
-            <h5>Expected Response</h3>
-            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Code 200 with message sent as plaintext.</p>
-            <h5>Error</h5>
-            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Code 400 with Error message sent as plaintext.</p>
+            <h3><span style="color: blue; font-weight: bold;">POST</span> | /api/editGame/</h2>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Adds an entry to the Games.JSON file.</p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Requires the following parameters:</p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BO: "{1/3/5}"</p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MapPool: "#|#|#|#|#|#|#|#"</p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MapOrder: "#|#|#|#|#|#|#"</p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AgentOrder: "#|#|#|#|#|#|#|#|..." (or leave blank "")</p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Teams: "#|#"</p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The GameID will be automatically allocated.</p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;For Proper Formatting, see <a href="#JSON">Storage (JSON) Formatting</a></p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ensure all fields are sent as strings.</p>
+                <h5>Expected Response</h3>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Code 200 with "Edit Successful." sent as plaintext.</p>
+                <h5>Error</h5>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Code 400 with a corresponding Error message sent as plaintext.</p>
 
             <br>
 
-            <h3><span style="color: blue; font-weight: bold;">POST</span> | /api/editGame/:GameID</h2>
+            <h3><span style="color: blue; font-weight: bold;">POST</span> | /api/deleteGame</h2>
             <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"Deletes" an entry to the Games.JSON file.</p>
             <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The instance will become blank in the JSON file.</p>
             <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Requires the following parameter:</p>
@@ -378,7 +498,73 @@
             <h5>Expected Response</h3>
             <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Code 200 with JSON File.</p>
             <h5>Error</h5>
-            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Code 400 with Error message sent as plaintext.</p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Code 400 with a corresponding Error message sent as plaintext.</p>
+
+            <br>
+            <h3><span style="color: blue; font-weight: bold;">POST</span> | /api/harshDeleteGame</h3>
+                <h4><span style="color: red; font-weight: bold;">WARNING:</span> Do not use unless you strictly know the consequences.</h4>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Deletes an entry to the Games.JSON file.</p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Requires the following parameter:</p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GameID: "#"</p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ensure the GameID is sent as a string.</p>
+                <h5>Expected Response</h3>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Code 200 with JSON File.</p>
+                <h5>Error</h5>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Code 400 with a corresponding Error message sent as plaintext.</p>
+
+            <br>
+
+            <h3><span style="color: blue; font-weight: bold;">POST</span> | /api/addTeam</h2>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Adds an entry to the Teams.JSON file.</p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Requires the following parameters:</p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Name: "#"</p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Players: "#|#|#|#|#"</p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The TeamID will be automatically allocated.</p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;For Proper Formatting, see <a href="#JSON">Storage (JSON) Formatting</a></p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ensure all fields are sent as strings.</p>
+                <h5>Expected Response</h3>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Code 200 with the allocated TeamID sent as plaintext.</p>
+                <h5>Error</h5>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Code 400 with a corresponding Error message sent as plaintext.</p>
+
+            <br>
+
+            <h3><span style="color: blue; font-weight: bold;">POST</span> | /api/editTeam</h2>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Edits an entry to the Teams.JSON file.</p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Requires the following parameters:</p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TeamID: "#"</p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Players: "#|#|#|#|#"</p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Name: "#"</p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;For Proper Formatting, see <a href="#JSON">Storage (JSON) Formatting</a></p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ensure all fields are sent as strings.</p>
+                <h5>Expected Response</h3>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Code 200 with the allocated TeamID sent as plaintext.</p>
+                <h5>Error</h5>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Code 400 with a corresponding Error message sent as plaintext.</p>
+
+                <br>
+
+                <h3><span style="color: blue; font-weight: bold;">POST</span> | /api/deleteTeam</h2>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"Deletes" an entry to the Teams.JSON file.</p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The instance will become blank in the JSON file.</p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Requires the following parameter:</p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TeamID: "#"</p>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ensure the TeamID is sent as a string.</p>
+                <h5>Expected Response</h3>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Code 200 with JSON File.</p>
+                <h5>Error</h5>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Code 400 with a corresponding Error message sent as plaintext.</p>
+    
+                <br>
+                <h3><span style="color: blue; font-weight: bold;">POST</span> | /api/harshDeleteTeam</h3>
+                    <h4><span style="color: red; font-weight: bold;">WARNING:</span> Do not use unless you strictly know the consequences.</h4>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Deletes an entry to the Teams.JSON file.</p>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TeamID: "#"</p>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ensure the TeamID is sent as a string.</p>
+                    <h5>Expected Response</h3>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Code 200 with JSON File.</p>
+                    <h5>Error</h5>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Code 400 with a corresponding Error message sent as plaintext.</p>
         </div>
     </div>
 

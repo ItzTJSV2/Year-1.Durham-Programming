@@ -48,8 +48,9 @@ let MapNames = [];
 let TeamNames = [];
 
 function createCard(TeamA, TeamB, Maps, gameID) {
+    const cardWrapper = document.createElement('div');
     const card = document.createElement('a');
-    card.classList.add('card'); 
+    cardWrapper.classList.add('card'); 
     card.id = `${gameID}`;
 
     card.href = `GetGame.html?GameID=${gameID}`;
@@ -67,14 +68,14 @@ function createCard(TeamA, TeamB, Maps, gameID) {
     });
     for (let i = 0; i < 5 - Maps.length; i++) {
         const listItem = document.createElement('li');
-        listItem.textContent = "&nbsp;";
+        listItem.innerHTML = "&nbsp;";
         mapsList.appendChild(listItem);
     }
     card.appendChild(mapsList);
 
     const deleteButton = document.createElement('button');
     deleteButton.textContent = 'Delete Game';
-    deleteButton.onclick = () => deleteCard(card.id);
+    deleteButton.onclick = () => deleteCard(gameID);
 
     deleteButton.style.padding = '8px 16px';
     deleteButton.style.backgroundColor = '#ff4d4d';
@@ -92,9 +93,41 @@ function createCard(TeamA, TeamB, Maps, gameID) {
         deleteButton.style.backgroundColor = '#ff4d4d';
     });
 
-    card.appendChild(deleteButton);
+    cardWrapper.appendChild(card);
+    cardWrapper.appendChild(deleteButton);
 
-    document.getElementById('cardContainer').appendChild(card);
+    document.getElementById('cardContainer').appendChild(cardWrapper);
+}
+
+function deleteCard(cardID) {
+    console.log("Deleting card with ID:", cardID);
+    const card = document.getElementById(cardID);
+    if (card) {
+        let userConfirmed = window.confirm('Are you sure you want to delete this game?');
+        if (userConfirmed) {
+            const teamData = {
+                GameID: cardID.toString(),
+            };
+            fetch('http://127.0.0.1:8080/api/deleteGame', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(teamData)
+            })
+            .then(response => response.text())
+            .then(data => {
+                console.log("Successful Deletion: ", data);
+                checkGames();
+            })
+            .catch(error => {
+                console.error('Error:', error); // Log any error
+                alert("An error occurred. Please try again later.");
+            });
+         }
+    } else {
+        console.log('Card not found');
+    }
 }
 
 async function createAllTeams(teamAs, teamBs, MapObjects, gameIDs) {

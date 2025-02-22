@@ -89,13 +89,18 @@ function goToScene(from, sceneID) {
             Maps = [];
             return;
         }
+        let tempArray01 = MapLinks.slice();
+        let tempArray02 = MapNames.slice();
+        let count = 1
         checkboxes.forEach((checkbox) => {
             if (checkbox.checked) {
                 Maps.push(checkbox.id);
                 MapPool.push(checkbox.id);
             } else {
-                MapLinks.splice(checkbox.id, 1);
-                MapNames.splice(checkbox.id, 1);
+                var index = MapLinks.indexOf(tempArray01[checkbox.id]);
+                MapLinks.splice(index, 1);
+                index = MapNames.indexOf(tempArray02[checkbox.id]);
+                MapNames.splice(index, 1);
             }
         });
         document.getElementById('bestOfLabel').innerHTML =  "Best of " + BO;

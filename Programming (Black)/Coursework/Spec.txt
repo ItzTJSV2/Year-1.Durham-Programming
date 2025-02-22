@@ -1,5 +1,9 @@
 Valorant Coursework
 
+THIS WAS WRITTEN FOR PLANNING AND THINKING ABOUT THINGS AS DEVELOPMENT WENT ON.  FOR INFORMATION AND DOCUMENTATION USE 'npm start'
+AND VISIT THE 'Docs' SECTION OR SIMPLY OPEN 'Client/API.html'.
+
+
 Users
 When 1 user updates the state, update the JSON state
 1 user for now for simplicity

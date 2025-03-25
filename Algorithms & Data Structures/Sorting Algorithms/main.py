@@ -59,5 +59,30 @@ def mergeSort(InputArray):
 
     return merge(left, right)
 
+def bucket_sort(arr):
+    if len(arr) == 0:
+        return arr
 
-print(mergeSort([23, 1, 10, 5, 2]))
+    # Step 1: Create buckets
+    bucket_count = len(arr)
+    buckets = [[] for _ in range(bucket_count)]
+
+    # Step 2: Insert elements into buckets
+    max_value = max(arr)
+    min_value = min(arr)
+    range_per_bucket = (max_value - min_value) / bucket_count
+
+    for num in arr:
+        index = int((num - min_value) / range_per_bucket)
+        if index == bucket_count:  # Edge case for max value
+            index -= 1
+        buckets[index].append(num)
+    # Step 3: Sort each bucket and gather results
+    sorted_arr = []
+    for bucket in buckets:
+        sorted_arr.extend(sorted(bucket))  # Using Python's built-in sort
+
+    return sorted_arr
+
+
+print(bucket_sort([1, 3, 4, 1, 5, 6, 8, 4, 7, 3, 6, 8]))
